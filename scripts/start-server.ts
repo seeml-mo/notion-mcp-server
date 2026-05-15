@@ -8,7 +8,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import express from 'express'
 
-import { initProxy, ValidationError } from '../src/init-server'
+import { initProxy, ValidationError } from '../src/init-server.js'
 
 export async function startServer(args: string[] = process.argv) {
   const filename = fileURLToPath(import.meta.url)
