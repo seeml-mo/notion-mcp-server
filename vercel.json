@@ -7,5 +7,10 @@
       "config": { "bundle": true }
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "scripts/start-server.ts" }]
+  "rewrites": [
+    {
+      "source": "/(health|mcp)",
+      "destination": "scripts/start-server.ts"
+    }
+  ]
 }
