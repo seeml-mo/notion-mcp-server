@@ -59,5 +59,9 @@
   "bugs": {
     "url": "https://github.com/makenotion/notion-mcp-server/issues"
   },
-  "homepage": "https://github.com/makenotion/notion-mcp-server#readme"
+  "homepage": "https://github.com/makenotion/notion-mcp-server#readme",
+
+  "engines": {
+    "node": "20.x"
+  }
 }
