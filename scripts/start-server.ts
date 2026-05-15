@@ -230,53 +230,75 @@ Examples:
     })
 
     const port = options.port
-    app.listen(port, '0.0.0.0', async () => {
-      console.log(`MCP Server listening on port ${port}`)
-      console.log(`Endpoint: http://0.0.0.0:${port}/mcp`)
-      console.log(`Health check: http://0.0.0.0:${port}/health`)
-      if (options.disableAuth) {
-        console.log(`Authentication: Disabled`)
-      } else {
-        console.log(`Authentication: Bearer token required`)
-        if (authTokenFilePath) {
-          console.log(`Read your auth token from: ${authTokenFilePath}`)
-        }
-      }
-      // Try to resolve the Notion integration link so users can manage their token
-      const notionToken = process.env.NOTION_TOKEN
-      if (notionToken) {
-        try {
-          const res = await fetch('https://api.notion.com/v1/users/me', {
-            headers: {
-              'Authorization': `Bearer ${notionToken}`,
-              'Notion-Version': '2022-06-28',
-            },
-          })
-          if (res.ok) {
-            const data = await res.json() as { id?: string; type?: string }
-            if (data.id && data.type === 'bot') {
-              console.log(`Notion integration settings: https://www.notion.so/profile/integrations/internal/${data.id}`)
-            }
+
+    //修改点2：只有在非 Vercel 环境下才手动启动监听
+    if (!process.env.VERCEL) {
+      app.listen(port, '0.0.0.0', async () => {
+        console.log(`MCP Server listening on port ${port}`)
+        console.log(`Endpoint: http://0.0.0.0:${port}/mcp`)
+        console.log(`Health check: http://0.0.0.0:${port}/health`)
+        if (options.disableAuth) {
+          console.log(`Authentication: Disabled`)
+        } else {
+          console.log(`Authentication: Bearer token required`)
+          if (authTokenFilePath) {
+            console.log(`Read your auth token from: ${authTokenFilePath}`)
           }
-        } catch {
-          // Non-critical: silently ignore if we can't resolve the bot ID
         }
-      }
-    })
+        // Try to resolve the Notion integration link so users can manage their token
+        const notionToken = process.env.NOTION_TOKEN
+        if (notionToken) {
+          try {
+            const res = await fetch('https://api.notion.com/v1/users/me', {
+              headers: {
+                'Authorization': `Bearer ${notionToken}`,
+                'Notion-Version': '2022-06-28',
+              },
+            })
+            if (res.ok) {
+              const data = await res.json() as { id?: string; type?: string }
+              if (data.id && data.type === 'bot') {
+                console.log(`Notion integration settings: https://www.notion.so/profile/integrations/internal/${data.id}`)
+              }
+            }
+          } catch {
+            // Non-critical: silently ignore if we can't resolve the bot ID
+          }
+        }
+      })
+    }
 
     // Return a dummy server for compatibility
-    return { close: () => {} }
+    //return { close: () => {} }
+    return app //修改1：改为返回 express 实例，这样外部才能拿到它
   } else {
     throw new Error(`Unsupported transport: ${transport}. Use 'stdio' or 'http'.`)
   }
 }
 
-startServer(process.argv).catch(error => {
-  if (error instanceof ValidationError) {
-    console.error('Invalid OpenAPI 3.1 specification:')
-    error.errors.forEach(err => console.error(err))
-  } else {
-    console.error('Error:', error)
+//修改点4：阻止 Vercel 环境下的“双重启动”
+if (!process.env.VERCEL) {
+  startServer(process.argv).catch(error => {
+    if (error instanceof ValidationError) {
+      console.error('Invalid OpenAPI 3.1 specification:')
+      error.errors.forEach(err => console.error(err))
+    } else {
+      console.error('Error:', error)
+    }
+    process.exit(1)
+  })
+}
+
+//修改点3：适配 Vercel Serverless Function 规范
+// 预先启动服务器初始化逻辑，并导出给 Vercel 调用
+const serverPromise = startServer([]); //修改5：强制不读取命令行参数，直接读环境变量
+
+export default async (req: any, res: any) => {
+  const server = await serverPromise;
+  // 如果是 HTTP 模式返回的是 app，直接处理请求
+  if (typeof server === 'function') {
+    return server(req, res);
   }
-  process.exit(1)
-})
+  // 如果是 stdio 模式，Vercel 无法处理，直接报错
+  res.status(500).send('Server is running in stdio mode, which is not supported on Vercel.');
+};
