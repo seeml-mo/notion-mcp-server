@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { HttpClient } from '../http-client'
+import { HttpClient } from '../http-client.js'
 import express from 'express'
 import type { OpenAPIV3 } from 'openapi-types'
 import type { Server } from 'http'

@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e08aa536-b95c-416d-8ba8-58166f438770" name="Changes" comment="setup vercel.json">
+    <list default="true" id="e08aa536-b95c-416d-8ba8-58166f438770" name="Changes" comment="fix: add explicit .js extension for vercel compatibility">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/start-server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start-server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/init-server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/init-server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/auth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/auth/template.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/auth/template.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/client/__tests__/http-client-upload.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/client/__tests__/http-client-upload.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/client/__tests__/http-client.integration.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/client/__tests__/http-client.integration.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/client/__tests__/http-client.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/client/__tests__/http-client.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/client/http-client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/client/http-client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/mcp/proxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/mcp/proxy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/openapi/__tests__/file-upload.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/openapi/__tests__/file-upload.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/openapi/__tests__/parser-multipart.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/openapi/__tests__/parser-multipart.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/openapi-mcp-server/openapi/__tests__/parser.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/openapi-mcp-server/openapi/__tests__/parser.test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778837200585</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix: add explicit .js extension for vercel compatibility">
+      <option name="closed" value="true" />
+      <created>1778840089485</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1778840089485</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +160,7 @@
     <MESSAGE value="静态分析ts问题" />
     <MESSAGE value="return to official version" />
     <MESSAGE value="setup vercel.json" />
-    <option name="LAST_COMMIT_MESSAGE" value="setup vercel.json" />
+    <MESSAGE value="fix: add explicit .js extension for vercel compatibility" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: add explicit .js extension for vercel compatibility" />
   </component>
 </project>
